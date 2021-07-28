@@ -2,15 +2,15 @@
 #$ -S /bin/sh
 #$ -cwd
 
-export PATH=/lustre7/home/lustre3/takagi-hiroki/miniconda2/bin:${PATH}
-samtools_PATH=/lustre7/home/lustre3/segawa-tenta/tools/bin/samtools-1.9/samtools
+export PATH=#Input your conda pass:${PATH}
+samtools_PATH=#Input your samtools path
 
-#bamが羅列したtxtファイル
-bam_pass=/lustre7/home/s-saiga/average_depth_analysis/multi_align_Yotsuboshi_Houkou/Yotsuboshi_bam_bai/bam_pass.txt
+#TXT file with lots of BAM ex)xxx/xxx/1.bam \n xxx/xxx/2.bam \n ...
+bam_pass=xxx/xxx/xxx/bam_pass.txt
 #culutivar_name
-culutivar_name=Yotsuboshi
+culutivar_name=xxx
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------
-#使うcpuの数
+#used cpu
 used_cpu=8
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------
 cd ../
@@ -19,7 +19,6 @@ cd ${culutivar_name}_rmdup_sort_bam_bai
 
 python ../script/PCR_duplicate.py ${bam_pass}
 
-#並行処理
 echo "make rmdup bam..."
 cat rmdup_bam.txt|xargs -P${used_cpu} -I % sh -c %
 echo "finish"
